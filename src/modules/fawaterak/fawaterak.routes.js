@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { getSuccess , createSession, webhookMiddleWre  } from "../../modules/fawaterak/fawaterak.controller.js"
+import { getSuccess , createSession, webhookMiddleWre, paymentFailed, paymentSuccess  } from "../../modules/fawaterak/fawaterak.controller.js"
 
 
 
@@ -10,10 +10,10 @@ const router  = Router() ;
          .get (getSuccess) 
 
       router.route("/success")
-         .get (getSuccess) 
-         
+         .get (paymentSuccess) 
+
       router.route("/fail")
-         .get (getSuccess) 
+         .get (paymentFailed) 
 
       router.route("/create-session")
          .post (createSession) 
