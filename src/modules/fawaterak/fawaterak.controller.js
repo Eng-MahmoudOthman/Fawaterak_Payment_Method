@@ -95,7 +95,7 @@ const BASE_URL = process.env.BASE_URL ;
       async(req , res , next)=>{
          try {
             console.log(`💰 Successfully Payment Message`);
-            console.log(req);
+            console.log(req.body);
             // await paymentModel.findOneAndUpdate(
             //    { orderId: invoice_id },
             //    { status },
@@ -175,6 +175,3 @@ const BASE_URL = process.env.BASE_URL ;
 //       logo: 'https://staging.fawaterk.com/clients/payment_options/pay5.png'
 //     }
 //   ]
-
-
-
