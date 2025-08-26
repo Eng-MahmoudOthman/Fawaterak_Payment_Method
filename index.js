@@ -27,11 +27,6 @@ app.use(cors());
 // app.use(bodyParser.json({ limit: '1mb' }))
 app.use(express.json()) ;
 
-// مثال Express Route
-app.post("/api/payments/webhook", (req, res) => {
-   console.log("📩 Webhook data:", req.body);
-   res.sendStatus(200); // لازم ترجع 200 OK
-});
 
 // & Create Payment Method :
 app.use(v1_routes);
