@@ -57,7 +57,7 @@ const BASE_URL = process.env.BASE_URL ;
                   },
                ],
                cartTotal: 200 , // مجموع كل المنتجات
-               orderDetails:{orderName:143423423 , name:"Mahmoud Othman" , gender:"male" , age:33} , 
+               payLoad:{orderName:143423423 , name:"Mahmoud Othman" , gender:"male" , age:33} , 
                currency: "EGP",
                payment_method_id : 2 ,
                successUrl: `${BASE_URL}/api/payments/success`,
@@ -95,7 +95,9 @@ const BASE_URL = process.env.BASE_URL ;
       async(req , res , next)=>{
          try {
             console.log(`💰 Successfully Payment Message`);
-            console.log(req.body);
+            console.log(req.body.payLoad);
+            console.log("==================");
+            console.log(JSON.stringify(req.body, null, 2))
             // await paymentModel.findOneAndUpdate(
             //    { orderId: invoice_id },
             //    { status },
