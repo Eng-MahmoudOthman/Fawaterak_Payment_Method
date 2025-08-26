@@ -99,7 +99,8 @@ export async function getPaymentMethods() {
             );
 
             console.log(`💰 Successfully Payment Message`);
-            res.json({message:"💰 Successfully Payment Message"});
+            // res.json({message:"💰 Successfully Payment Message"});
+            res.sendStatus(200)
          } catch (error) {
             console.error(error.message);
             res.sendStatus(500);
