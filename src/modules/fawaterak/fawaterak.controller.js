@@ -91,6 +91,7 @@ export async function getPaymentMethods() {
    export const webhookMiddleWre = catchError(
       async(req , res , next)=>{
          try {
+            console.log(`💰 Successfully Payment Message`);
             const { invoice_id, status } = req.body;
             await paymentModel.findOneAndUpdate(
                { orderId: invoice_id },
@@ -98,7 +99,6 @@ export async function getPaymentMethods() {
                { new: true }
             );
 
-            console.log(`💰 Successfully Payment Message`);
             res.json({message:"💰 Successfully Payment Message"});
          } catch (error) {
             console.error(error.message);
