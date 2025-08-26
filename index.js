@@ -31,12 +31,6 @@ app.use(express.json()) ;
 // & Create Payment Method :
 app.use(v1_routes);
 
-app.get("/success", (req, res) => res.send("✅ Payment Successful"));
-app.get("/fail", (req, res) => res.send("❌ Payment Failed"));
-
-
-
-
 //& Specific Function Vercel : 
 const startServer = () => {
    try {

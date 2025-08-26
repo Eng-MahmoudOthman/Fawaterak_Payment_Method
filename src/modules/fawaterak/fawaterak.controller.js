@@ -11,50 +11,57 @@ const FAWATERK_BASE_URL = process.env.FAWATERK_BASE_URL ;
 const BASE_URL = process.env.BASE_URL ;
 
 
-
+//& Get All Payments :
+   export const getSuccess = catchError(
+      async(req , res , next)=>{
+         const invoices = await paymentModel.find() ;
+         console.log("Successfully Ya Mahmoud Othman");
+         res.json({message:"Successfully Ya Mahmoud Othman" , invoices})
+      }
+   )
 
 //& Create Payment Method :
-export async function getPaymentMethods() {
-   try {
-      const response = await axios.get(
-         " https://staging.fawaterk.com/api/v2/getPaymentmethods",
-         {
-         headers: {
-            Authorization: `Bearer ${FAWATERK_API_KEY}`,
-            "Content-Type": "application/json",
-         },
-         }
-      );
+   export async function getPaymentMethods() {
+      try {
+         const response = await axios.get(
+            " https://staging.fawaterk.com/api/v2/getPaymentmethods",
+            {
+            headers: {
+               Authorization: `Bearer ${FAWATERK_API_KEY}`,
+               "Content-Type": "application/json",
+            },
+            }
+         );
 
-      console.log("Payment Method" , response.data);
-   } catch (err) {
-      console.error(err.response?.data || err.message);
+         console.log("Payment Method" , response.data);
+      } catch (err) {
+         console.error(err.response?.data || err.message);
+      }
    }
-}
 
 
 //& Create Session :
    export const createSession = async (req , res , next) => {
       try {
-         const { first_name , last_name , email, phone, amount , payment_method_id } = req.body;
+         // const { first_name , last_name , email, phone, 200  , payment_method_id } = req.body;
 
          const response = await axios.post(`${FAWATERK_BASE_URL}/invoiceInitPay`,
             {
                providerKey: "FAWATERAK.1986",
-               customer: { first_name , last_name , email , phone },
+               customer: { first_name:"Mahmoud" , last_name:"Othman" , email:"mahmoud@gmail.com" , phone:"01123333434" },
                cartItems: [
                   {
                      name: "Order Payment",
-                     price: amount,
+                     price: 200,
                      quantity: 1,
                   },
                ],
-               cartTotal: amount, // مجموع كل المنتجات
-               orderDetails:{orderName:143423423 , name:"Mahmoud Othman" , gender:"male" , age:33} , 
+               cartTotal: 200 , // مجموع كل المنتجات
+               // orderDetails:{orderName:143423423 , name:"Mahmoud Othman" , gender:"male" , age:33} , 
                currency: "EGP",
-               payment_method_id ,
-               successUrl: `${BASE_URL}/success`,
-               failUrl: `${BASE_URL}/fail` ,
+               payment_method_id : 2 ,
+               successUrl: `${BASE_URL}/api/payments/success`,
+               failUrl: `${BASE_URL}/api/payments/fail` ,
             },
             {
             headers: {
@@ -66,16 +73,12 @@ export async function getPaymentMethods() {
 
          const invoice = response.data ;
          
-         const newPayment = await paymentModel.create({
-            orderId: invoice.data.invoice_id,
-            invoiceUrl: invoice.data.url,
-            amount,
-            customer: { 
-               name: `${first_name} ${last_name}`, 
-               email, 
-               phone 
-            },
-         })
+         // const newPayment = await paymentModel.create({
+         //    orderId: invoice.data.invoice_id,
+         //    invoiceUrl: invoice.data.url,
+         //    amount,
+         //    customer: { first_name:"Mahmoud" , last_name:"Othman" , email:"mahmoud@gmail.com" , phone:"01123333434" } ,
+         // })
 
          res.json({ success: true, invoice: invoice.data });
       } catch (error) {
@@ -109,12 +112,19 @@ export async function getPaymentMethods() {
 
 
 
-//& End Point To Testing :
-   export const getSuccess = catchError(
+
+//& Success Payment :
+   export const paymentSuccess = catchError(
       async(req , res , next)=>{
-         const invoices = await paymentModel.find() ;
-         console.log("Successfully Ya Mahmoud Othman");
-         res.json({message:"Successfully Ya Mahmoud Othman" , invoices})
+         res.send("✅ Payment Successful");
+      }
+   )
+
+
+//& Failed Payment 
+   export const paymentFailed = catchError(
+      async(req , res , next)=>{
+         res.send("❌ Payment Failed");
       }
    )
 
