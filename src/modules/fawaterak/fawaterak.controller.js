@@ -112,8 +112,9 @@ export async function getPaymentMethods() {
 //& End Point To Testing :
    export const getSuccess = catchError(
       async(req , res , next)=>{
+         const invoices = await paymentModel.find() ;
          console.log("Successfully Ya Mahmoud Othman");
-         res.json({message:"Successfully Ya Mahmoud Othman"})
+         res.json({message:"Successfully Ya Mahmoud Othman" , invoices})
       }
    )
 
