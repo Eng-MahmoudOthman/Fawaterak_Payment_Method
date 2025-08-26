@@ -96,11 +96,12 @@ const BASE_URL = process.env.BASE_URL ;
          try {
             console.log(`💰 Successfully Payment Message`);
             const { invoice_id, status } = req.body;
-            await paymentModel.findOneAndUpdate(
-               { orderId: invoice_id },
-               { status },
-               { new: true }
-            );
+            console.log(`💰 ${invoice_id, status}`);
+            // await paymentModel.findOneAndUpdate(
+            //    { orderId: invoice_id },
+            //    { status },
+            //    { new: true }
+            // );
 
             res.json({message:"💰 Successfully Payment Message"});
          } catch (error) {
