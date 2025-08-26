@@ -95,9 +95,8 @@ const BASE_URL = process.env.BASE_URL ;
       async(req , res , next)=>{
          try {
             console.log(`💰 Successfully Payment Message`);
-            console.log(req.body.payLoad);
             console.log("==================");
-            console.log(JSON.stringify(req.body, null, 2))
+            console.log(JSON.stringify(req.body.payLoad, null, 2))
             // await paymentModel.findOneAndUpdate(
             //    { orderId: invoice_id },
             //    { status },

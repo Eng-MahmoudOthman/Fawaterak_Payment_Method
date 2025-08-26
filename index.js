@@ -9,7 +9,6 @@ import env from "dotenv"
 import { dbConnection } from './DataBase/dbConnection.js';
 import v1_routes from "./src/routes/v1.routes.js"
 import bodyParser from 'body-parser';
-import { webhookMiddleWre } from './src/modules/fawaterak/fawaterak.controller.js';
 
 env.config() ;
 
@@ -25,11 +24,9 @@ const port = process.env.PORT ||  5000 ;
 
 //& Express Middle Ware :
 app.use(cors());
-app.use(bodyParser.json({ limit: '1mb' }))
+// app.use(bodyParser.json({ limit: '1mb' }))
 app.use(express.json()) ;
 
-//& Receive Webhook From Paymob :
-app.post("/webhook" , webhookMiddleWre)
 
 
 
