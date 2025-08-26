@@ -48,7 +48,7 @@ const BASE_URL = process.env.BASE_URL ;
          const response = await axios.post(`${FAWATERK_BASE_URL}/invoiceInitPay`,
             {
                providerKey: "FAWATERAK.1986",
-               customer: { first_name:"Mahmoud" , last_name:"Othman" , email:"mahmoud@gmail.com" , phone:"01123333434" },
+               customer: { first_name:"Mahmoud" , last_name:"Othman" , email:"mahmoud@gmail.com" , phone:"+201123333434" },
                cartItems: [
                   {
                      name: "Order Payment",
@@ -72,7 +72,7 @@ const BASE_URL = process.env.BASE_URL ;
          );
 
          const invoice = response.data ;
-         
+
          // const newPayment = await paymentModel.create({
          //    orderId: invoice.data.invoice_id,
          //    invoiceUrl: invoice.data.url,

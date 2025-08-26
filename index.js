@@ -31,6 +31,8 @@ app.use(express.json()) ;
 // & Create Payment Method :
 app.use(v1_routes);
 
+
+
 //& Specific Function Vercel : 
 const startServer = () => {
    try {
@@ -56,18 +58,9 @@ process.on("unhandledRejection" , (error)=>{
 
 
 
+// 🔑 Test Mode Fawaterak :
 
-// Mastercard Approved :
-// 5123456789012346
-// Test Account
-// 12/25
-// 123
-
-
-// URL Server On Vercel :
-// https://paymob-method.vercel.app/
-
-
-
-// Postman Documentation :
-// https://documenter.getpostman.com/view/29733612/2sAYkDLf9v
+// Card Number      :   4242 4242 4242 4242
+// Expiry Date      :   12/30
+// CVV              :   123
+// Card Holder Name :   Test User
