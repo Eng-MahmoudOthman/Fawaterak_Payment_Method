@@ -57,7 +57,7 @@ const BASE_URL = process.env.BASE_URL ;
                   },
                ],
                cartTotal: 200 , // مجموع كل المنتجات
-               payLoad:{orderName:143423423 , name:"Mahmoud Othman" , gender:"male" , age:33} , 
+               payload:{orderName:143423423 , name:"Mahmoud Othman" , gender:"male" , age:33} , 
                currency: "EGP",
                payment_method_id : 2 ,
                successUrl: `${BASE_URL}/api/payments/success`,
@@ -96,13 +96,11 @@ const BASE_URL = process.env.BASE_URL ;
          try {
             console.log(`💰 Successfully Payment Message`);
             console.log("==================");
-            console.log("payLoad" , req.body.payLoad)
-            console.log("req.payLoad" , req.payLoad)
-            console.log("req.body.customer" ,  req.body.customer)
-            console.log("req.customer" ,  req.customer)
-            console.log("body" ,  req.body)
-            console.log("data" ,  req.data)
-            console.log("req" ,  req)
+            console.log("req.body" ,  req.body)
+            console.log("req.body.customerData" ,  req.body.customerData)
+            console.log("req.body.payload" ,  req.body.payload)
+            console.log("req.body.pay_load" ,  req.body.pay_load)
+
             // await paymentModel.findOneAndUpdate(
             //    { orderId: invoice_id },
             //    { status },
@@ -182,3 +180,35 @@ const BASE_URL = process.env.BASE_URL ;
 //       logo: 'https://staging.fawaterk.com/clients/payment_options/pay5.png'
 //     }
 //   ]
+
+
+
+
+
+
+
+
+
+
+
+// body {
+//   invoice_key: '1ZjTybaYFBmn0kN',
+//   invoice_id: '1069672',
+//   payment_method: 'Card',
+//   invoice_status: 'paid',
+//   pay_load: '{"orderName":143423423,"name":"Mahmoud Othman","gender":"male","age":33}',
+//   paidAmount: '200',
+//   paidCurrency: 'EGP',
+//   customerData: {
+//     customer_unique_id: '-',
+//     customer_first_name: 'Mahmoud',
+//     customer_last_name: 'Othman',
+//     customer_email: 'mahmoud@gmail.com',
+//     customer_phone: '+201123333434'
+//   },
+//   hashKey: '5fad7d99164da41fbd91eea321b3e607133e20e18a95aefd035057e718380b33',
+//   cardDiscountAmount: '0',
+//   discountBankCode: '',
+//   paymentToken: 'eyJpdiI6ImJFWnZCUkJqbDU0VTFDMXlzazZLblE9PSIsInZhbHVlIjoiaDJiY0RaQTIxZkNhVGV5eCt6dE5JR0UwUUM2YXNSSnBudFN5R09IcE1nQT0iLCJtYWMiOiI0NGU0OTk4ZTI3N2JiMmFjZWUxNTYxNmVmNDI5YTkwZTU0ODE3MzYzZGU1OGE2NDMyM2MwMzhjMmM5ZjhmZWRhIiwidGFnIjoiIn0=',
+//   referenceNumber: 'IN-1069672'
+// }
