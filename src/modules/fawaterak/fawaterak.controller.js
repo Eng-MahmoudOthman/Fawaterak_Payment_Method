@@ -87,7 +87,7 @@ const BASE_URL = process.env.BASE_URL ;
             console.log("req.body.pay_load" ,  req.body.pay_load)
 
             if(req.body.invoice_status === "paid"){
-               await createOnlineOrder(req.body) ;
+               await createOnlineOrder(req.body.pay_load) ;
             }
 
             res.json({message:"💰 Successfully Payment Message"});
@@ -117,28 +117,13 @@ const BASE_URL = process.env.BASE_URL ;
    )
 
 //& Create Online Order :
-   export const createOnlineOrder = async(body)=>{
-      const {paidAmount , customerData , hashKey , invoice_id , pay_load , invoice_status } = body ;
-
-
+   export const createOnlineOrder = async(data)=>{
+      const {name , email , phone } = data ;
       console.log("💰 Order Successfully Created") ;
 
-      console.log("💰 pay_load" , pay_load) ;
-      pay_load =  JSON.parse(pay_load) ;
-      console.log("💰 pay_load" ,pay_load) ;
+      console.log("💰 pay_load" , data) ;
 
-
-      await paymentModel.create({
-         orderId: invoice_id ,
-         invoiceUrl: hashKey ,
-         amount: paidAmount ,
-         status: invoice_status ,
-         customer: {
-            name : pay_load.name ,
-            email: pay_load.email ,
-            phone: pay_load.phone
-         } ,
-      });
+      await paymentModel.create({name , email , phone});
    }
 
 
