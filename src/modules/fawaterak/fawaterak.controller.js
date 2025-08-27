@@ -82,6 +82,7 @@ const BASE_URL = process.env.BASE_URL ;
             console.log(`💰 Successfully Payment Message`);
             console.log("==================");
             console.log("req.body" ,  req.body)
+            console.log("req" ,  req)
             console.log("req.body.customerData" ,  req.body.customerData)
             console.log("req.body.pay_load" ,  req.body.pay_load)
 
@@ -121,7 +122,9 @@ const BASE_URL = process.env.BASE_URL ;
 
 
       console.log("💰 Order Successfully Created") ;
+
       console.log("💰 pay_load" , pay_load) ;
+      console.log("💰 pay_load" , JSON.parse(pay_load)) ;
 
 
       await paymentModel.create({
