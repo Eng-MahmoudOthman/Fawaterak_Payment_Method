@@ -87,7 +87,8 @@ const BASE_URL = process.env.BASE_URL ;
             console.log("req.body.pay_load" ,  req.body.pay_load)
 
             if(req.body.invoice_status === "paid"){
-               await createOnlineOrder(req.body.pay_load) ;
+               const pay_load_obj = JSON.parse(req.body.pay_load);
+               await createOnlineOrder(pay_load_obj) ;
             }
 
             res.json({message:"💰 Successfully Payment Message"});
@@ -121,7 +122,7 @@ const BASE_URL = process.env.BASE_URL ;
       const {name , email , phone } = data ;
       console.log("💰 Order Successfully Created") ;
 
-      console.log("💰 pay_load" , data) ;
+      console.log("💰 data" , data) ;
 
       await paymentModel.create({name , email , phone});
    }
