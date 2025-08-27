@@ -33,7 +33,9 @@ const BASE_URL = process.env.BASE_URL ;
 //& Create Session :
    export const createSession = async (req , res , next) => {
       try {
-         const { first_name , last_name , email, phone, amount  , payment_method_id } = req.body;
+         const { name , email, phone, amount , gender , age , birthDay , payment_method_id } = req.body;
+         const first_name = name.split(" ")[0] ;
+         const last_name = name.split(" ")[1] ;
 
          const response = await axios.post(`${FAWATERK_BASE_URL}/invoiceInitPay`,
             {
@@ -47,7 +49,7 @@ const BASE_URL = process.env.BASE_URL ;
                   },
                ],
                cartTotal: amount , // مجموع كل المنتجات
-               payLoad:{orderName:143423423 , name:"Mahmoud Othman" , gender:"male" , age:33} , 
+               payLoad:{name  , email , phone , gender , age , birthDay} , 
                currency: "EGP",
                payment_method_id ,
                successUrl: `${BASE_URL}/api/payments/success`,
