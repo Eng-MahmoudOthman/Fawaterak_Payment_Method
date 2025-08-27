@@ -39,7 +39,7 @@ const BASE_URL = process.env.BASE_URL ;
 
          const response = await axios.post(`${FAWATERK_BASE_URL}/invoiceInitPay`,
             {
-               providerKey: PROVIDER_KEY,
+               providerKey: PROVIDER_KEY ,
                customer: { first_name , last_name , email , phone},
                cartItems: [
                   {
