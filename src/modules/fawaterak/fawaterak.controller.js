@@ -125,7 +125,7 @@ const BASE_URL = process.env.BASE_URL ;
 
 //& Create Online Order :
    export const createOnlineOrder = async(body)=>{
-      const {paidAmount , customerData , hashKey , invoice_id , pay_load } = body ;
+      const {paidAmount , customerData , hashKey , invoice_id , pay_load , invoice_status } = body ;
 
 
       console.log("💰 Order Successfully Created") ;
@@ -136,6 +136,7 @@ const BASE_URL = process.env.BASE_URL ;
          orderId: invoice_id ,
          invoiceUrl: hashKey ,
          amount: paidAmount ,
+         status: invoice_status ,
          customer: {
             name : customerData.customer_first_name + "" + customerData.customer_last_name ,
             email: customerData.customer_email ,
