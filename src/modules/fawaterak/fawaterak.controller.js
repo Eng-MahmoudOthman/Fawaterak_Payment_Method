@@ -129,9 +129,9 @@ const BASE_URL = process.env.BASE_URL ;
          amount: paidAmount ,
          status: invoice_status ,
          customer: {
-            name : customerData.customer_first_name + "" + customerData.customer_last_name ,
-            email: customerData.customer_email ,
-            phone: customerData.customer_phone
+            name : pay_load.name ,
+            email: pay_load.email ,
+            phone: pay_load.phone
          } ,
       });
    }
