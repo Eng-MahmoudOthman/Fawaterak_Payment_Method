@@ -34,7 +34,7 @@ const BASE_URL = process.env.BASE_URL ;
    export const createSession = async (req , res , next) => {
       try {
          const { name , email, phone, amount , gender , age , birthDay , payment_method_id } = req.body;
-         const first_name = name.split(" ")[0] ;
+         const first_name = name.split(" ")[0] + "  " ;
          const last_name = name.split(" ")[1] ;
 
          const response = await axios.post(`${FAWATERK_BASE_URL}/invoiceInitPay`,
