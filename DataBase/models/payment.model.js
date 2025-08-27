@@ -21,4 +21,4 @@ const schema = new Schema({
 } , { timestamps:true } )
 
 
-export const paymentModel = model("user" , schema)
+export const paymentModel = model("payment" , schema)

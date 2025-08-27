@@ -7,6 +7,7 @@ env.config()
 
 
 const FAWATERK_API_KEY = process.env.FAWATERK_API_KEY ;
+const PROVIDER_KEY = process.env.PROVIDER_KEY ;
 const FAWATERK_BASE_URL = process.env.FAWATERK_BASE_URL ;
 const BASE_URL = process.env.BASE_URL ;
 
@@ -43,23 +44,23 @@ const BASE_URL = process.env.BASE_URL ;
 //& Create Session :
    export const createSession = async (req , res , next) => {
       try {
-         // const { first_name , last_name , email, phone, 200  , payment_method_id } = req.body;
+         const { first_name , last_name , email, phone, amount  , payment_method_id } = req.body;
 
          const response = await axios.post(`${FAWATERK_BASE_URL}/invoiceInitPay`,
             {
-               providerKey: "FAWATERAK.1986",
-               customer: { first_name:"Mahmoud" , last_name:"Othman" , email:"mahmoud@gmail.com" , phone:"+201123333434" },
+               providerKey: PROVIDER_KEY,
+               customer: { first_name , last_name , email , phone},
                cartItems: [
                   {
                      name: "Order Payment",
-                     price: 200,
+                     price: amount,
                      quantity: 1,
                   },
                ],
-               cartTotal: 200 , // مجموع كل المنتجات
-               payload:{orderName:143423423 , name:"Mahmoud Othman" , gender:"male" , age:33} , 
+               cartTotal: amount , // مجموع كل المنتجات
+               payLoad:{orderName:143423423 , name:"Mahmoud Othman" , gender:"male" , age:33} , 
                currency: "EGP",
-               payment_method_id : 2 ,
+               payment_method_id ,
                successUrl: `${BASE_URL}/api/payments/success`,
                failUrl: `${BASE_URL}/api/payments/fail` ,
             },
@@ -72,14 +73,6 @@ const BASE_URL = process.env.BASE_URL ;
          );
 
          const invoice = response.data ;
-
-         // const newPayment = await paymentModel.create({
-         //    orderId: invoice.data.invoice_id,
-         //    invoiceUrl: invoice.data.url,
-         //    amount,
-         //    customer: { first_name:"Mahmoud" , last_name:"Othman" , email:"mahmoud@gmail.com" , phone:"01123333434" } ,
-         // })
-
          res.json({ success: true, invoice: invoice.data });
       } catch (error) {
          // console.error(error);
@@ -90,7 +83,7 @@ const BASE_URL = process.env.BASE_URL ;
 
 
 
-//& Receive Webhook From Paymob :
+//& Receive Webhook From Fawaterak :
    export const webhookMiddleWre = catchError(
       async(req , res , next)=>{
          try {
@@ -98,14 +91,11 @@ const BASE_URL = process.env.BASE_URL ;
             console.log("==================");
             console.log("req.body" ,  req.body)
             console.log("req.body.customerData" ,  req.body.customerData)
-            console.log("req.body.payload" ,  req.body.payload)
             console.log("req.body.pay_load" ,  req.body.pay_load)
 
-            // await paymentModel.findOneAndUpdate(
-            //    { orderId: invoice_id },
-            //    { status },
-            //    { new: true }
-            // );
+            if(req.body.invoice_status === "paid"){
+               await createOnlineOrder(req.body) ;
+            }
 
             res.json({message:"💰 Successfully Payment Message"});
          } catch (error) {
@@ -134,12 +124,25 @@ const BASE_URL = process.env.BASE_URL ;
    )
 
 //& Create Online Order :
-   export const createOnlineOrder = ()=>{
-      console.log("Order Successfully")
+   export const createOnlineOrder = async(body)=>{
+      const {paidAmount , customerData , hashKey , invoice_id , pay_load } = body ;
+
+
+      console.log("💰 Order Successfully Created") ;
+      console.log("💰 pay_load" , pay_load) ;
+
+
+      await paymentModel.create({
+         orderId: invoice_id ,
+         invoiceUrl: hashKey ,
+         amount: paidAmount ,
+         customer: {
+            name : customerData.customer_first_name + "" + customerData.customer_last_name ,
+            email: customerData.customer_email ,
+            phone: customerData.customer_phone
+         } ,
+      });
    }
-
-
-
 
 
 
