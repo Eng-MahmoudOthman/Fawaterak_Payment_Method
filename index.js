@@ -8,7 +8,6 @@ import cors from 'cors'
 import env from "dotenv"
 import { dbConnection } from './DataBase/dbConnection.js';
 import v1_routes from "./src/routes/v1.routes.js"
-// import bodyParser from 'body-parser';
 
 env.config() ;
 
@@ -24,9 +23,11 @@ const port = process.env.PORT ||  5000 ;
 
 //& Express Middle Ware :
 app.use(cors());
-// app.use(bodyParser.json({ limit: '1mb' }))
+// Encoded Server data (Json) :
 app.use(express.json()) ;
-app.use(express.urlencoded({ extended: true })); // للـ application/x-www-form-urlencoded
+
+// Encoded Server data (Form-data , Application/x-www-form-urlencoded) :
+app.use(express.urlencoded({ extended: true })); 
 
 
 // & Create Payment Method :

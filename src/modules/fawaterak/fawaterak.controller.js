@@ -22,23 +22,17 @@ const BASE_URL = process.env.BASE_URL ;
    )
 
 //& Create Payment Method :
-   export async function getPaymentMethods() {
+   export const getPaymentMethods = catchError(async(req , res , next)=>{
       try {
-         const response = await axios.get(
-            " https://staging.fawaterk.com/api/v2/getPaymentmethods",
-            {
-            headers: {
-               Authorization: `Bearer ${FAWATERK_API_KEY}`,
-               "Content-Type": "application/json",
-            },
-            }
-         );
+         const  headers =  { Authorization: `Bearer ${FAWATERK_API_KEY}`,"Content-Type": "application/json"} ;
+         const {data} = await axios.get("https://staging.fawaterk.com/api/v2/getPaymentmethods",{headers});
+         res.json({message:"success" , payment_method :data})
 
          console.log("Payment Method" , response.data);
       } catch (err) {
          console.error(err.response?.data || err.message);
       }
-   }
+      }) ;
 
 
 //& Create Session :
