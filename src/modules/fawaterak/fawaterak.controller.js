@@ -50,6 +50,7 @@ const BASE_URL = process.env.BASE_URL ;
                ],
                cartTotal: amount , // مجموع كل المنتجات
                payLoad:{name  , email , phone , gender , age , birthDay} , 
+               bodyData:{name  , email , phone , gender , age , birthDay} , 
                currency: "EGP",
                payment_method_id ,
                successUrl: `${BASE_URL}/api/payments/success`,
