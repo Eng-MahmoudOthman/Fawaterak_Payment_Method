@@ -23,6 +23,7 @@ const port = process.env.PORT ||  5000 ;
 
 //& Express Middle Ware :
 app.use(cors());
+
 // Encoded Server data (Json) :
 app.use(express.json()) ;
 
@@ -32,7 +33,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // & Create Payment Method :
 app.use(v1_routes);
-
 
 
 //& Specific Function Vercel : 
