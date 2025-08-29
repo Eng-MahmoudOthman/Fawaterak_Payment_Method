@@ -23,11 +23,19 @@ const BASE_URL = process.env.BASE_URL ;
 
 //& Create Payment Method :
    export const getPaymentMethods = catchError(async(req , res , next)=>{
-      const  headers =  { Authorization: `Bearer ${FAWATERK_API_KEY}`,"Content-Type": "application/json"} ;
-      const {data} = await axios.get("https://staging.fawaterk.com/api/v2/getPaymentmethods",{headers});
+      const  headers =  { 
+         Authorization: `Bearer ${FAWATERK_API_KEY}`,
+         "Content-Type": "application/json"
+      } ;
+
+      const {data} = await axios.get(`${FAWATERK_BASE_URL}/api/v2/getPaymentmethods`,{headers});
       res.json({message:"success" , payment_method :data})
-      // console.log("Payment Method" , data);
+      // res.json({message:"success"})
+      // console.log("Payment Method");
    }) ;
+
+
+
 
 
 //& Create Session :
@@ -37,7 +45,7 @@ const BASE_URL = process.env.BASE_URL ;
          const first_name = name.split(" ")[0] + "  " ;
          const last_name = name.split(" ")[1] ;
 
-         const response = await axios.post(`${FAWATERK_BASE_URL}/invoiceInitPay`,
+         const response = await axios.post(`${FAWATERK_BASE_URL}/api/v2/invoiceInitPay`,
             {
                providerKey: PROVIDER_KEY ,
                customer: { first_name , last_name , email , phone},
@@ -71,6 +79,7 @@ const BASE_URL = process.env.BASE_URL ;
          res.status(500).json({ success: false, message: "Error creating invoice" });
       }
    };
+
 
 
 
